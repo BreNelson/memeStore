@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width" />
+		<title>Meme Generator</title>
+		<link rel="stylesheet" href="style.css">
+	</head>
+	<body>
+		
+		<script type="text/javascript"> 
+			
+			function getWhich(){
+				var xhr = new XMLHttpRequest();			
+				
+				xhr.open("GET","http://localhost:3000/getMeme", true);
+				xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+				xhr.onreadystatechange = function() {
+        			if (this.readyState == XMLHttpRequest.DONE && this.status == 200) {
+						document.getElementById("rat").style.textAlign = "center";
+            			document.getElementById("rat").innerHTML = this.responseText;     				}
+				};
+				
+				xhr.send();
+   			}
+
+			   function insertMeme(){
+				
+				var url = document.getElementById("url").value;		
+				
+				var xhr = new XMLHttpRequest();	
+				xhr.open("GET","http://localhost:3000/insertMeme?url=" + url, true);
+				xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+				xhr.send();
+   			}
+		
+		</script>
+
+		<h1 style="text-align: center">The Meme Machine</h1>
+		<!-- <form onSubmit="JavaScript:insertMeme()">
+			<div id="temp"><input type="text" id="url"></div><br>
+			<input type="submit" value="Submit your URL">
+		  </form> 
+		
+		 <button onClick="getWhich()" type="button">Get Meme</button>
+		<div id="rat"></div> -->
+
+		<div style="text-align: center;">
+		<form action="/putMeme" method="post" enctype="multipart/form-data">
+			<input type="file" name="avatar" />
+			<input type="submit" value="Submit your file">
+		  </form>
+		</div>
+			<br>
+			<br>
+			<br>
+			<br>
+		  <div style="text-align: center;"><img src="/getMeme" alt="Yo" width="50%"></div>
+
+	<footer>Refresh to get a spicy meme :)</footer>
+
+	</body>
+</html>
